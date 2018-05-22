@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>8 block puzzle</title>
+<noscript>noscript</noscript>
+<style>
+.brick {
+    width: 60px;
+	height: 60px;
+	background-color: yellow;
+	font-size: 64px;
+	padding: 50px 50px 50px 50px;
+	margin: 10px 10px 10px 10px;
+	float: left;
+}
+.end {
+    clear: left;
+}
+</style>
+
+<script>
+var friends = [[1,3],[0,2,4],[1,5],[0,4,6],[1,3,5,7],[2,4,8],[3,7],[4,6,8],[5,7]];
+
+function get(i) { return document.getElementById(""+i); }
+
+function onc(notthis) {
+var me = Number(notthis.id);
+var others = friends[me];
+blank = -1;
+for (var i = 0; i < others.length; i++)
+    blank = get(others[i]).innerHTML == "" ? others[i] : blank;
+if (blank == -1)
+    return;
+get(blank).innerHTML = get(me).innerHTML;
+get(me).innerHTML = "";
+};
+
+window.onload = function() {
+var moves = 0;
+var board = [['1','2','3'],['4','5','6'],['7','8','']];
+
+
+function elt(n) {
+return "<p id="+n+" onclick=onc(this) class=brick>"+(n+1)+"</p>";
+};
+
+var htmli = "";
+for (var i = 0; i < 9; i++)
+    htmli = htmli + elt(i);
+get("board").innerHTML = htmli;
+get(8).innerHTML = "";
+get(7).innerHTML = "8";
+get(6).innerHTML = "7";
+get(3).style = "clear:left";
+get(6).style = "clear:left";
+};
+</script>
+
+</head>
+
+<body>
+<p id="board"></p>
+
+</body>
+</html>
